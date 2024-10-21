@@ -131,6 +131,16 @@ app.post("/songLists", async (req, res) => {
 })
 
 app.get("/songLists", async (req, res) => {
+    const lists = await SongCatelog.find({})
+    res.json(lists);
+})
+
+app.get("/songLists/:id", async (req, res) => {
+    const list = await SongCatelog.findById(req.params.id).populate("songs");
+    res.json(list);
+})
+
+app.get("/songListsWithSongs", async (req, res) => {
     const lists = await SongCatelog.find({}).populate("songs");
     res.json(lists);
 })
